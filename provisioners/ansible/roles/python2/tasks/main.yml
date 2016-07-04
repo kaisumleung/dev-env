@@ -1,0 +1,50 @@
+---
+#
+# Boostrap Python - Tasks
+#
+
+- name: Check if bootstrap is needed
+  raw: /bin/test -x {{bin_home}}/python
+  register: need_boostrap
+  ignore_errors: True
+
+- name: Fetch python archive from control host
+  raw: |
+    /bin/wget -q -O /tmp/{{pypy2_archive}} http://172.17.8.100/vagrant/provisioners/ansible/roles/python2/files/{{pypy2_archive}}
+  when: need_boostrap | failed
+
+- name: Extracting python
+  raw: |
+    mkdir -p {{pkg_home}}
+    tar jx -C {{pkg_home}} -f /tmp/{{pypy2_archive}}
+  when: need_boostrap | failed
+
+- name: Linking libncurses to libtinfo
+  raw: |
+    if ! [ -h {{lib_home}}/libtinfo.so.5 ]; then
+      mkdir -p {{lib_home}}
+      ln -s /lib64/libncurses.so.5.9 {{lib_home}}/libtinfo.so.5
+    fi
+  when: need_boostrap | failed
+
+- name: Create python wrapper
+  raw: |
+    mkdir -p {{bin_home}}
+    echo "#!/bin/bash" > {{bin_home}}/python
+    echo 'LD_LIBRARY_PATH={{lib_home}}:${LD_LIBRARY_PATH} {{pypy2_home}}/bin/pypy "$@"' >> {{bin_home}}/python
+    chmod 755 {{bin_home}}/python
+  when: need_boostrap | failed
+
+# - name: Install pip
+#   raw: |
+#     {{bin_home}}/python -m ensurepip
+#   when: need_boostrap | failed
+
+# - name: Create python pip wrapper
+#   raw: |
+#     mkdir -p {{bin_home}}
+#     echo "#!/bin/bash" > {{bin_home}}/pip
+#     echo 'LD_LIBRARY_PATH={{lib_home}}:${LD_LIBRARY_PATH} {{pypy2_home}}/bin/pip "$@"' >> {{bin_home}}/pip
+#     chmod 755 {{bin_home}}/pip
+#     {{bin_home}}/pip -q install -U pip
+#   when: need_boostrap | failed

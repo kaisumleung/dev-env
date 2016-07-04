@@ -7,10 +7,6 @@ bin_home: /opt/bin
 lib_home: /opt/lib
 pkg_home: /opt/pkg
 
-pypy2_version: v5.3.1
-pypy2_archive: pypy2-{{pypy2_version}}-linux64.tar.bz2
-pypy2_home: "{{pkg_home}}/pypy2-{{pypy2_version}}-linux64"
-
 pypy3_version: v5.2.0-alpha1
 pypy3_archive: pypy3.3-{{pypy3_version}}-linux64.tar.bz2
 pypy3_home: "{{pkg_home}}/pypy3.3-{{pypy3_version}}-linux64"

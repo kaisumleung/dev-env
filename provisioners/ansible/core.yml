@@ -7,5 +7,6 @@
   become: true
   gather_facts: False
   roles:
-    - python
+    - python2
+    - python3
     - java

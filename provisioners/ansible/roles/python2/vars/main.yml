@@ -1,0 +1,12 @@
+---
+#
+# Boostrap Python - Variable
+#
+
+bin_home: /opt/bin
+lib_home: /opt/lib
+pkg_home: /opt/pkg
+
+pypy2_version: v5.3.1
+pypy2_archive: pypy2-{{pypy2_version}}-linux64.tar.bz2
+pypy2_home: "{{pkg_home}}/pypy2-{{pypy2_version}}-linux64"
