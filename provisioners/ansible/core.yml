@@ -1,0 +1,11 @@
+---
+#
+# Bootstrap coreos
+#
+
+- hosts: all
+  become: true
+  gather_facts: False
+  roles:
+    - python
+    - java

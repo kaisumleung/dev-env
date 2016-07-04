@@ -1,0 +1,13 @@
+---
+#
+# Boostrap Java - Variable
+#
+
+bin_home: /opt/bin
+lib_home: /opt/lib
+pkg_home: /opt/pkg
+
+jdk_code: 8u91
+jdk_version: 1.8.0_91
+jdk_archive: jdk-{{jdk_code}}-linux-x64.tar.gz
+jdk_home: "{{pkg_home}}/jdk{{jdk_version}}"
